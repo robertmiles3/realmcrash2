@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:m="clr-namespace:realmcrash.Models"
+    x:Class="realmcrash.Views.FolderDetailPage"
+    Title="FOLDER"
+    NavigationPage.BackButtonTitle=""
+    x:Name="ThePage">
+    <StackLayout>
+        <StackLayout Orientation="Horizontal" Spacing="0" Margin="20">
+            <Label Text="{Binding Title}" FontSize="Title" />
+        </StackLayout>
+        <ListView x:Name="ItemsListView" ItemsSource="{Binding Folder.Items}" SelectionMode="None" >
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="m:Item">
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding Path=BindingContext.RemoveItemCommand, Source={x:Reference ThePage}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                        </ViewCell.ContextActions>
+                        <ContentView Padding="20,10">
+                            <Entry Text="{Binding Title}" FontSize="18" />
+                        </ContentView>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>

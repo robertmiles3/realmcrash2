@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Class="realmcrash.Views.HomePage"
+    xmlns:vm="clr-namespace:realmcrash.ViewModels"
+    Title="HOME"
+    NavigationPage.BackButtonTitle=""
+    x:Name="ThePage">
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <ListView
+            x:Name="FoldersListView"
+            ItemsSource="{Binding Folders}"
+            HasUnevenRows="True"
+            ItemSelected="FoldersListView_ItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Command="{Binding Path=BindingContext.DeleteFolderCommand, Source={x:Reference ThePage}}" CommandParameter="{Binding .}" Text="Delete" IsDestructive="True" />
+                        </ViewCell.ContextActions>
+                        <StackLayout Orientation="Vertical" Padding="20,5">
+                            <Label Text="{Binding Title}" FontSize="18" />
+                            <Label Text="{Binding Items.Count, StringFormat='{0:N0} items'}" FontSize="12" VerticalTextAlignment="Center" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+</ContentPage>
